@@ -19,8 +19,4 @@ def pizza():
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD:app.py
     app.run(host="0.0.0.0")
-=======
-    app.run(debug=True)
->>>>>>> origin:main.py
