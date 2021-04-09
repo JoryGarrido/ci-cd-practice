@@ -1,0 +1,7 @@
+Type: AWS::ECS::Cluster
+Properties: 
+  CapacityProviders: 
+    - FARGATE
+  ClusterName: ci-cd-practice-cluster
+  Tags: 
+    - practice
