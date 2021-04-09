@@ -1,7 +1,43 @@
-Type: AWS::ECS::Cluster
-Properties: 
-  CapacityProviders: 
-    - FARGATE
-  ClusterName: ci-cd-practice-cluster
-  Tags: 
-    - practice
+AWSTemplateFormatVersion: "2021-04-09"
+Parameters:
+  SubnetID:
+    Type: String
+Resources:
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: deployment-example-cluster
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: deployment-example-log-group
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: deployment-example-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+  ContainerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: ContainerSecurityGroup
+      GroupDescription: Security group for NGINX container
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5000
+          ToPort: 5000
+          CidrIp: 0.0.0.0/0
+
+# Type: AWS::ECS::Cluster
+# Properties: 
+#   CapacityProviders: 
+#     - FARGATE
+#   ClusterName: ci-cd-practice-cluster
+#   Tags: 
+#     - practice
