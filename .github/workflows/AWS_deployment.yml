@@ -2,14 +2,12 @@ name: AWS_deployment
 
 # Run this workflow every time a new commit pushed to your repository
 on:
-  push:
-    branches:
-      - main:
-        inputs:
-          region:
-            description: 'AWS Region'
-            required: true
-            default: 'us-east-1'
+  workflow_dispatch:
+    inputs:
+      region:
+        description: 'AWS Region'
+        required: true
+        default: 'eu-west-1'
 
 jobs:  
   aws_deployment:
